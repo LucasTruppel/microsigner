@@ -1,4 +1,4 @@
-package br.ufsc.microsigner.user.exception.http;
+package br.ufsc.microsigner.user.exception;
 
 public class BadRequestException extends RuntimeException{
 
