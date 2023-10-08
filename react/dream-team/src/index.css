@@ -36,6 +36,33 @@ h1 {
   line-height: 1.1;
 }
 
+h3 {
+  font-size: 2.4em;
+  line-height: 1.1;
+}
+
+textarea {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+}
+
+input {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -63,7 +90,25 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
+  textarea {
+    background-color: #e1e1e1;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  input {
+    background-color: #e1e1e1;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
   button {
-    background-color: #f9f9f9;
+    background-color: #e1e1e1;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 }
