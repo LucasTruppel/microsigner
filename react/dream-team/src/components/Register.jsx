@@ -11,8 +11,8 @@ const Register = ({ onRegister }) => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div className="component">
+      <h3>Sign Up</h3>
       <div className="username">
         <input
           type="text"
@@ -30,7 +30,7 @@ const Register = ({ onRegister }) => {
         />
       </div>
       <div className="button">
-        <button onClick={handleRegister}>Register</button>
+        <button onClick={handleRegister}>Sign Up</button>
       </div>
     </div>
   );

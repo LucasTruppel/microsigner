@@ -52,7 +52,7 @@ function App() {
       {!loggedInUser ? (
         <>
           <div>
-            <h3>Sign Up or Log in</h3>
+            <h2>Sign Up or Login</h2>
           </div>
           <Register onRegister={handleRegister} />
           <Login onLogin={handleLogin} />
@@ -60,7 +60,7 @@ function App() {
       ) : (
         <>
           <div>
-            <h3>Welcome, {loggedInUser.username}!</h3>
+            <h2>Welcome, {loggedInUser.username}!</h2>
           </div>
           <SignDocument onSign={handleSignDocument} onBack={() => setLoggedInUser(null)} />
           <VerifySignature onVerify={handleVerifySignature} onBack={() => setLoggedInUser(null)} />

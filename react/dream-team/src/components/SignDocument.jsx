@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 
 const SignDocument = ({ onSign, onBack }) => {
   const [documentText, setDocumentText] = useState('');
+  const [privateKey, setPrivateKey] = useState('');
+  const [signer, setSigner] = useState('');
 
   const handleSign = () => {
-    onSign(documentText);
+    onSign(documentText, privateKey, signer);
     setDocumentText('');
+    setPrivateKey('');
+    setSigner('');
   };
 
   return (
-    <div>
-      <h2>Sign Document</h2>
+    <div className="component">
+      <h3>Sign Document</h3>
       <div className="document">
         <textarea
             rows="10"
@@ -18,6 +22,22 @@ const SignDocument = ({ onSign, onBack }) => {
             placeholder="Enter document text..."
             value={documentText}
             onChange={(e) => setDocumentText(e.target.value)}
+        />
+      </div>
+      <div className="signer">
+        <input
+          type="text"
+          placeholder="Your Name..."
+          value={signer}
+          onChange={(e) => setSigner(e.target.value)}
+        />
+      </div>
+      <div className="privateKey">
+        <input
+          type="text"
+          placeholder="Enter Private Key..."
+          value={privateKey}
+          onChange={(e) => setPrivateKey(e.target.value)}
         />
       </div>
       <div className="button">

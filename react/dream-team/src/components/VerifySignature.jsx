@@ -2,17 +2,21 @@ import React, { useState } from 'react';
 
 const VerifySignature = ({ onVerify, onBack }) => {
   const [documentText, setDocumentText] = useState('');
+  const [publicKey, setPublicKey] = useState('');
+  const [signer, setSigner] = useState('');
   const [signature, setSignature] = useState('');
 
   const handleVerify = () => {
-    onVerify(documentText, signature);
+    onVerify(documentText, publicKey, signer, signature);
     setDocumentText('');
+    setPublicKey('');
+    setSigner('');
     setSignature('');
   };
 
   return (
-    <div>
-      <h2>Verify Signature</h2>
+    <div className="component">
+      <h3>Verify Signature</h3>
       <div className="document">
         <textarea
             rows="10"
@@ -24,18 +28,18 @@ const VerifySignature = ({ onVerify, onBack }) => {
       </div>
       <div className="signer">
         <input
-            type="text"
-            placeholder="Enter the signer's name..."
-            value={signature}
-            onChange={(e) => setSignature(e.target.value)}
+          type="text"
+          placeholder="Signer Name..."
+          value={signer}
+          onChange={(e) => setSigner(e.target.value)}
         />
       </div>
-      <div className="signature">
+      <div className="publicKey">
         <input
-            type="text"
-            placeholder="Enter a public key..."
-            value={signature}
-            onChange={(e) => setSignature(e.target.value)}
+          type="text"
+          placeholder="Enter Public Key..."
+          value={publicKey}
+          onChange={(e) => setPublicKey(e.target.value)}
         />
       </div>
       <div className="button">

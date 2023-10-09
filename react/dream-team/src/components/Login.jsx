@@ -11,8 +11,8 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="component">
+      <h3>Login</h3>
       <div className="username">
         <input
           type="text"
