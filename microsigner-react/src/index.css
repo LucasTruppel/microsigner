@@ -40,20 +40,14 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
   color: #e1e1e1;
-  padding: 0.5em;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  background-color: #213547;
+  text-shadow: -2px -2px 0 #213547, 2px -2px 0 #213547, -2px 2px 0 #213547, 2px 2px 0 #213547;
 }
 
 h2 {
   font-size: 2.4em;
   line-height: 1.1;
   color: #e1e1e1;
-  padding: 0.5em;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  background-color: #213547;
+  text-shadow: -2px -2px 0 #213547, 2px -2px 0 #213547, -2px 2px 0 #213547, 2px 2px 0 #213547;
 }
 
 h3 {
