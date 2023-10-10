@@ -12,6 +12,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  background: linear-gradient(45deg,  #e1e1e1, #213547);
+  background-size: 400% 400%;
+  background-position: cover;
+  animation: gradientAnimation 15s infinite;
 }
 
 a {
@@ -34,16 +39,27 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  color: #e1e1e1;
+  padding: 0.5em;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background-color: #213547;
 }
 
 h2 {
   font-size: 2.4em;
   line-height: 1.1;
+  color: #e1e1e1;
+  padding: 0.5em;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background-color: #213547;
 }
 
 h3 {
   font-size: 1.8em;
   line-height: 1.1;
+  color: #e1e1e1;
 }
 
 textarea {
@@ -95,6 +111,18 @@ button:focus-visible {
   display: inline-block;
 }
 
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -102,10 +130,6 @@ button:focus-visible {
   }
   a:hover {
     color: #747bff;
-  }
-
-  h3 {
-    color: #e1e1e1;
   }
 
   textarea {
@@ -133,7 +157,7 @@ button:focus-visible {
   }
 
   .component {
-    background-color: #213547;;
+    background-color: #213547;
     margin-bottom: 10px;
     margin-top: 10px;
     margin-left: 10px;

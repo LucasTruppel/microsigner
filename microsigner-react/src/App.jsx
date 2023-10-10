@@ -48,7 +48,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Design Patterns in Distributed Computing</h1>
+      <h1>MicroSigner</h1>
       {!loggedInUser ? (
         <>
           <div>
