@@ -1,7 +1,9 @@
 package br.ufsc.microsigner.crypto.controller;
 
 import br.ufsc.microsigner.crypto.dto.request.SignRequest;
+import br.ufsc.microsigner.crypto.dto.request.VerifyRequest;
 import br.ufsc.microsigner.crypto.dto.response.SignResponse;
+import br.ufsc.microsigner.crypto.dto.response.VerifyResponse;
 import br.ufsc.microsigner.crypto.service.SignService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +29,15 @@ public class CryptoController {
     long userId = signService.verifyJwtAndGetUserId(authorizationHeader);
     String signatureB64 = signService.sign(userId, signRequest.getText());
     return new ResponseEntity<>(new SignResponse(signatureB64, signRequest.getText()), HttpStatus.OK);
+  }
+
+  @PostMapping("/verify")
+  public ResponseEntity<VerifyResponse> verify(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
+                                               @RequestBody @Valid VerifyRequest verifyRequest) {
+    signService.verifyJwtAndGetUserId(authorizationHeader);
+    boolean isValidSignature = signService.verifySignature(verifyRequest.getText(), verifyRequest.getSignatureBase64(),
+            verifyRequest.getSignerUsername());
+    return new ResponseEntity<>(new VerifyResponse(isValidSignature), HttpStatus.OK);
   }
 
 }
