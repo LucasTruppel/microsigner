@@ -1,0 +1,26 @@
+routes:
+  -
+    uri: /signup
+    upstream:
+        nodes:
+            "microsigner-user:8080": 1
+        type: roundrobin
+  -
+    uri: /login
+    upstream:
+        nodes:
+            "microsigner-user:8080": 1
+        type: roundrobin
+  -
+    uri: /sign
+    upstream:
+        nodes:
+            "microsigner-crypto:8080": 1
+        type: roundrobin
+  -
+    uri: /verify
+    upstream:
+        nodes:
+            "microsigner-crypto:8080": 1
+        type: roundrobin
+#END

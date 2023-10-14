@@ -1,0 +1,82 @@
+version: "3"
+
+services:
+  apisix:
+    container_name: microsigner-apisix
+    image: apache/apisix:${APISIX_IMAGE_TAG:-3.6.0-debian}
+    restart: always
+    volumes:
+      - ./apisix_conf/apisix.yaml:/usr/local/apisix/conf/apisix.yaml:ro
+    environment:
+      - APISIX_STAND_ALONE=true
+    ports:
+      - "9080:9080/tcp"
+    networks:
+      microsigner-network:
+
+  mysql:
+    container_name: microsigner-mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: microsigner
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    command: --init-file /data/application/init.sql
+    ports:
+      - "33066:3306"
+    expose:
+      - "3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/data/application/init.sql
+    networks:
+      microsigner-network:
+
+  microsigner-user:
+    container_name: microsigner-user
+    build:
+      context: ../microsigner-user/
+      dockerfile: Dockerfile
+    image: microsigner-user
+    expose:
+      - "8080"
+    environment:
+      MYSQL_DATABASE: microsigner
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_URL: mysql
+      APP_PORT: 8080
+    networks:
+      microsigner-network:
+    depends_on:
+      - mysql
+      - apisix
+
+  microsigner-crypto:
+    container_name: microsigner-crypto
+    build:
+      context: ../microsigner-crypto/
+      dockerfile: Dockerfile
+    image: microsigner-crypto
+    expose:
+      - "8080"
+    environment:
+      MYSQL_DATABASE: microsigner
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_URL: mysql
+      APP_PORT: 8080
+    networks:
+      microsigner-network:
+    depends_on:
+      - mysql
+      - apisix
+
+networks:
+  microsigner-network:
+    driver: bridge
+
+volumes:
+  db_data:

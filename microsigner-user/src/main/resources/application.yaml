@@ -1,15 +1,14 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/microsigner
-    username: user
-    password: user
+    url: jdbc:mysql://${MYSQL_URL:localhost:33066}/${MYSQL_DATABASE:microsigner}
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:password}
   jpa:
-    hibernate.ddl-auto: update
+    hibernate:
+      ddl-auto: update
     generate-ddl: true
     show-sql: true
 server:
-  servlet:
-    context-path: /microsigner-user
   error:
     include-message: always
-  port: 8080
+  port: ${APP_PORT:8080}
