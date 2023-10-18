@@ -11,6 +11,8 @@ services:
       - APISIX_STAND_ALONE=true
     ports:
       - "9080:9080/tcp"
+    expose:
+      - "9080"
     networks:
       microsigner-network:
 
@@ -72,6 +74,19 @@ services:
       microsigner-network:
     depends_on:
       - mysql
+      - apisix
+
+  microsigner-react:
+    container_name: microsigner-react
+    build:
+      context: ../microsigner-react/
+      dockerfile: Dockerfile
+    image: microsigner-react
+    ports:
+      - "5173:5173/tcp"
+    networks:
+      microsigner-network:
+    depends_on:
       - apisix
 
 networks:
