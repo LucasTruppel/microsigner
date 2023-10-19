@@ -6,13 +6,37 @@ import SignDocument from './components/SignDocument';
 import VerifySignature from './components/VerifySignature';
 
 function App() {
+
   const [registeredUsers, setRegisteredUsers] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [signedDocuments, setSignedDocuments] = useState([]);
   const [verifiedDocuments, setVerifiedDocuments] = useState([]);
 
   const handleRegister = (user) => {
-    setRegisteredUsers([...registeredUsers, user]);
+    //setRegisteredUsers([...registeredUsers, user]);
+    const { username, password } = user;
+    const xhr = new XMLHttpRequest();
+
+    //Boolean argument is for asynchronicity. (true for asynchronous)
+    xhr.open('POST', 'http://apisix:9080/signup', false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 400) {
+          var data = JSON.parse(xhr.responseText);
+          alert(data);
+      } else {
+          alert('Error:', xhr.status, xhr.statusText);
+      }
+    };
+  
+    xhr.onerror = function () {
+        alert('Network Error');
+    };
+  
+    xhr.send(JSON.stringify({ username: username, name: 'bar', password: password}));
+
+
   };
 
   const handleLogin = (user) => {
