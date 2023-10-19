@@ -13,12 +13,12 @@ function App() {
   const [verifiedDocuments, setVerifiedDocuments] = useState([]);
 
   const handleRegister = (user) => {
-    //setRegisteredUsers([...registeredUsers, user]);
+    //setRegisteredUsers([...registeredUsers, user]);   
     const { username, password } = user;
     const xhr = new XMLHttpRequest();
 
     //Boolean argument is for asynchronicity. (true for asynchronous)
-    xhr.open('POST', 'http://apisix:9080/signup', false);
+    xhr.open('POST', 'http://apisix:9080/signup/', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function () {
