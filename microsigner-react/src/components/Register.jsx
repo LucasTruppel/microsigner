@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
 const Register = ({ onRegister }) => {
+  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleRegister = () => {
     onRegister({ username, password });
+    setName('');
     setUsername('');
     setPassword('');
   };
@@ -13,6 +15,14 @@ const Register = ({ onRegister }) => {
   return (
     <div className="component">
       <h3>Sign Up</h3>
+      <div className="name">
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </div>
       <div className="username">
         <input
           type="text"

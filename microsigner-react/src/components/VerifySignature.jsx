@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 
 const VerifySignature = ({ onVerify, onBack }) => {
   const [documentText, setDocumentText] = useState('');
-  const [publicKey, setPublicKey] = useState('');
-  const [signer, setSigner] = useState('');
+  const [username, setUsername] = useState('');
   const [signature, setSignature] = useState('');
 
   const handleVerify = () => {
-    onVerify(documentText, publicKey, signer, signature);
+    onVerify(documentText, username, signature);
     setDocumentText('');
-    setPublicKey('');
-    setSigner('');
+    setUsername('');
     setSignature('');
   };
 
@@ -26,20 +24,20 @@ const VerifySignature = ({ onVerify, onBack }) => {
             onChange={(e) => setDocumentText(e.target.value)}
         />
       </div>
-      <div className="signer">
+      <div className="signature">
         <input
           type="text"
-          placeholder="Signer Name..."
-          value={signer}
-          onChange={(e) => setSigner(e.target.value)}
+          placeholder="Enter Signature..."
+          value={signature}
+          onChange={(e) => setSignature(e.target.value)}
         />
       </div>
-      <div className="publicKey">
+      <div className="username">
         <input
           type="text"
-          placeholder="Enter Public Key..."
-          value={publicKey}
-          onChange={(e) => setPublicKey(e.target.value)}
+          placeholder="Enter Subject Username..."
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
       </div>
       <div className="button">
