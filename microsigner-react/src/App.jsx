@@ -18,7 +18,7 @@ function App() {
     const xhr = new XMLHttpRequest();
 
     //Boolean argument is for asynchronicity. (true for asynchronous)
-    xhr.open('POST', 'http://apisix:9080/signup/', true);
+    xhr.open('POST', 'http://localhost:9080/signup', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function () {

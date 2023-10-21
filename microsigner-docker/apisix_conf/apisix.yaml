@@ -23,4 +23,9 @@ routes:
         nodes:
             "microsigner-crypto:8080": 1
         type: roundrobin
+global_rules:
+    -
+        id: 1
+        plugins:
+            cors:
 #END
