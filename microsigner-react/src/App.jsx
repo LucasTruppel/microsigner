@@ -7,22 +7,15 @@ import VerifySignature from './components/VerifySignature';
 
 function App() {
 
-  const [registeredUsers, setRegisteredUsers] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [signedDocuments, setSignedDocuments] = useState([]);
-  const [verifiedDocuments, setVerifiedDocuments] = useState([]);
+  const [jwt, setjwt] = useState("");
 
-  var jwt = "";
 
   const handleRegister = (user) => {
-    //setRegisteredUsers([...registeredUsers, user]);   
     const { username, password } = user;
     const xhr = new XMLHttpRequest();
-
-    //Boolean argument is for asynchronicity. (true for asynchronous)
-    xhr.open('POST', 'http://localhost:9080/signup', true);
+    xhr.open('POST', 'http://localhost:9080/signup');
     xhr.setRequestHeader('Content-Type', 'application/json');
-
     xhr.onload = function () {
       if (xhr.status >= 200 && xhr.status < 400) {
           const {username, name} = JSON.parse(xhr.responseText);
@@ -36,23 +29,21 @@ function App() {
     xhr.onerror = function () {
         alert('Network Error');
     };
-  
+
     xhr.send(JSON.stringify({ username: username, name: 'bar', password: password}));
-
-
   };
+
 
   const handleLogin = (user) => {
     const { username, password } = user;
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:9080/login', true);
+    xhr.open('POST', 'http://localhost:9080/login');
     xhr.setRequestHeader('Content-Type', 'application/json');
-
     xhr.onload = function () {
       if (xhr.status >= 200 && xhr.status < 400) {
-          jwt = JSON.parse(xhr.responseText).jwt;
-          setLoggedInUser(true);
+          setjwt(JSON.parse(xhr.responseText).jwt);
+          setLoggedInUser(username);
           alert('Login successful!');
       } else {
         alert('Error: ' + xhr.status + xhr.statusText + "\n"
@@ -62,17 +53,45 @@ function App() {
     xhr.onerror = function () {
         alert('Network Error');
     };
-    xhr.send(JSON.stringify({ username: username, password: password}));
 
+    xhr.send(JSON.stringify({ username: username, password: password}));
   };
+
+
+
+
 
   const handleSignDocument = (documentText) => {
-    setSignedDocuments([...signedDocuments, { username: loggedInUser.username, documentText }]);
-    alert('Document signed successfully!');
+    //documentText is just a string.
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:9080/sign');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', "Bearer " + jwt);
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 400) {
+        const {signatureBase64, text} = JSON.parse(xhr.responseText);
+        alert('Document signed successfully!\nSignature: ' + signatureBase64);
+
+      } else {
+        alert('Error: ' + xhr.status + xhr.statusText + "\n"
+        + JSON.parse(xhr.responseText).message);
+      }
+    };
+    xhr.onerror = function () {
+        alert('Network Error');
+    };
+
+    xhr.send(JSON.stringify({ text: documentText}));
   };
 
+  
   const handleVerifySignature = (documentText, signature) => {
-    const isVerified = signedDocuments.some(
+    //body with text, signatureBase64 and signerUsername. data received is a {signerUsername :  "true"}
+
+    alert("NOT IMPLEMENTED!");
+
+    /*const isVerified = signedDocuments.some(
       (doc) => doc.username === loggedInUser.username && doc.documentText === documentText
     );
 
@@ -81,8 +100,9 @@ function App() {
       alert('Signature verified successfully!');
     } else {
       alert('Signature verification failed.');
-    }
+    } */
   };
+
 
   return (
     <div className="App">
