@@ -5,16 +5,18 @@ import Login from './components/Login';
 import SignDocument from './components/SignDocument';
 import VerifySignature from './components/VerifySignature';
 
+const url = "http://localhost:9080/";
+
+
 function App() {
 
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [jwt, setjwt] = useState("");
 
-
   const handleRegister = (user) => {
     const { username, password } = user;
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:9080/signup');
+    xhr.open('POST', url + 'signup');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function () {
       if (xhr.status >= 200 && xhr.status < 400) {
@@ -38,7 +40,7 @@ function App() {
     const { username, password } = user;
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:9080/login');
+    xhr.open('POST',  url + 'login');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function () {
       if (xhr.status >= 200 && xhr.status < 400) {
@@ -65,7 +67,7 @@ function App() {
     //documentText is just a string.
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:9080/sign');
+    xhr.open('POST',  url + 'sign');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', "Bearer " + jwt);
     xhr.onload = function () {
@@ -85,11 +87,33 @@ function App() {
     xhr.send(JSON.stringify({ text: documentText}));
   };
 
-  
-  const handleVerifySignature = (documentText, signature) => {
-    //body with text, signatureBase64 and signerUsername. data received is a {signerUsername :  "true"}
 
-    alert("NOT IMPLEMENTED!");
+  const handleVerifySignature = (documentText, signature) => {
+    //documentText and signature are strings.
+    //body with text, signatureBase64 and signerUsername. data received is a {signerUsername : true}
+
+    
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST',  url + 'verify');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', "Bearer " + jwt);
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 400) {
+        const {validSignature} = JSON.parse(xhr.responseText);
+        alert(typeof(validSignature));
+        alert('Document signed successfully!\nSignature: ' );
+
+      } else {
+        alert('Error: ' + xhr.status + xhr.statusText + "\n"
+        + JSON.parse(xhr.responseText).message);
+      }
+    };
+    xhr.onerror = function () {
+        alert('Network Error');
+    };
+
+    xhr.send(JSON.stringify({text: documentText, signatureBase64: signature, signerUsername: "123"}));
+  
 
     /*const isVerified = signedDocuments.some(
       (doc) => doc.username === loggedInUser.username && doc.documentText === documentText
