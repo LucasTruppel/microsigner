@@ -12,6 +12,8 @@ function App() {
   const [signedDocuments, setSignedDocuments] = useState([]);
   const [verifiedDocuments, setVerifiedDocuments] = useState([]);
 
+  var jwt = "";
+
   const handleRegister = (user) => {
     //setRegisteredUsers([...registeredUsers, user]);   
     const { username, password } = user;
@@ -23,13 +25,14 @@ function App() {
 
     xhr.onload = function () {
       if (xhr.status >= 200 && xhr.status < 400) {
-          var data = JSON.parse(xhr.responseText);
-          alert(data);
+          const {username, name} = JSON.parse(xhr.responseText);
+          alert("User \"" + username + "\", with name \"" + name + "\", has signed up sucessfully!");
       } else {
-          alert('Error:', xhr.status, xhr.statusText);
+          alert('Error: ' + xhr.status + xhr.statusText + "\n"
+          + JSON.parse(xhr.responseText).message);
+
       }
     };
-  
     xhr.onerror = function () {
         alert('Network Error');
     };
@@ -40,16 +43,27 @@ function App() {
   };
 
   const handleLogin = (user) => {
-    const foundUser = registeredUsers.find(
-      (u) => u.username === user.username && u.password === user.password
-    );
+    const { username, password } = user;
 
-    if (foundUser) {
-      setLoggedInUser(foundUser);
-      alert('Login successful!');
-    } else {
-      alert('Invalid username or password.');
-    }
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:9080/login', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 400) {
+          jwt = JSON.parse(xhr.responseText).jwt;
+          setLoggedInUser(true);
+          alert('Login successful!');
+      } else {
+        alert('Error: ' + xhr.status + xhr.statusText + "\n"
+        + JSON.parse(xhr.responseText).message);
+      }
+    };
+    xhr.onerror = function () {
+        alert('Network Error');
+    };
+    xhr.send(JSON.stringify({ username: username, password: password}));
+
   };
 
   const handleSignDocument = (documentText) => {
