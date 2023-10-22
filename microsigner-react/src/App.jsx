@@ -7,14 +7,13 @@ import VerifySignature from './components/VerifySignature';
 
 const url = "http://localhost:9080/";
 
-
 function App() {
 
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [jwt, setjwt] = useState("");
 
   const handleRegister = (user) => {
-    const { username, password } = user;
+    const { name, username, password } = user;
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url + 'signup');
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -32,7 +31,7 @@ function App() {
         alert('Network Error');
     };
 
-    xhr.send(JSON.stringify({ username: username, name: 'bar', password: password}));
+    xhr.send(JSON.stringify({ username: username, name: name, password: password}));
   };
 
 
@@ -60,9 +59,6 @@ function App() {
   };
 
 
-
-
-
   const handleSignDocument = (documentText) => {
     //documentText is just a string.
 
@@ -88,11 +84,10 @@ function App() {
   };
 
 
-  const handleVerifySignature = (documentText, signature) => {
+  const handleVerifySignature = (documentText, username, signature) => {
     //documentText and signature are strings.
     //body with text, signatureBase64 and signerUsername. data received is a {signerUsername : true}
 
-    
     const xhr = new XMLHttpRequest();
     xhr.open('POST',  url + 'verify');
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -112,9 +107,8 @@ function App() {
         alert('Network Error');
     };
 
-    xhr.send(JSON.stringify({text: documentText, signatureBase64: signature, signerUsername: "123"}));
+    xhr.send(JSON.stringify({text: documentText, signatureBase64: signature, signerUsername: username}));
   
-
     /*const isVerified = signedDocuments.some(
       (doc) => doc.username === loggedInUser.username && doc.documentText === documentText
     );

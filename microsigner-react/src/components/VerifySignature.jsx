@@ -13,11 +13,11 @@ const VerifySignature = ({ onVerify, onBack }) => {
   };
 
   return (
-    <div className="component">
+    <div className="backcomponent">
       <h3>Verify Signature</h3>
       <div className="document">
         <textarea
-            rows="10"
+            rows="5"
             cols="50"
             placeholder="Enter document text..."
             value={documentText}
@@ -25,7 +25,9 @@ const VerifySignature = ({ onVerify, onBack }) => {
         />
       </div>
       <div className="signature">
-        <input
+        <textarea
+          rows="5"
+          cols="50"
           type="text"
           placeholder="Enter Signature..."
           value={signature}

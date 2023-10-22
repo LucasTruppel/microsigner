@@ -9,7 +9,7 @@ const SignDocument = ({ onSign, onBack }) => {
   };
 
   return (
-    <div className="component">
+    <div className="backcomponent">
       <h3>Sign Document</h3>
       <div className="document">
         <textarea

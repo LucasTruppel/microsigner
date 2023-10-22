@@ -11,7 +11,7 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="component">
+    <div className="frontcomponent">
       <h3>Login</h3>
       <div className="username">
         <input

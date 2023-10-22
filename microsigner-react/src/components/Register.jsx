@@ -6,14 +6,14 @@ const Register = ({ onRegister }) => {
   const [password, setPassword] = useState('');
 
   const handleRegister = () => {
-    onRegister({ username, password });
+    onRegister({ name, username, password });
     setName('');
     setUsername('');
     setPassword('');
   };
 
   return (
-    <div className="component">
+    <div className="frontcomponent">
       <h3>Sign Up</h3>
       <div className="name">
         <input
