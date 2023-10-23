@@ -35,7 +35,7 @@ public class Controller {
     return new ResponseEntity<>(new LoginResponse(jwt),HttpStatus.OK);
   }
 
-  @GetMapping("/{username}")
+  @GetMapping("/user/{username}")
   public ResponseEntity<GetUserIdResponse> getUserId(@PathVariable String username) {
     long userId = userService.getIdByUsername(username);
     return new ResponseEntity<>(new GetUserIdResponse(userId), HttpStatus.OK);

@@ -6,7 +6,7 @@ services:
     image: apache/apisix:${APISIX_IMAGE_TAG:-3.6.0-debian}
     restart: always
     volumes:
-      - ./apisix_conf/apisix.yaml:/usr/local/apisix/conf/apisix.yaml:ro
+      - ./apisix.yaml:/usr/local/apisix/conf/apisix.yaml:ro
     environment:
       - APISIX_STAND_ALONE=true
     ports:
@@ -70,11 +70,13 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_URL: mysql
       APP_PORT: 8080
+      MICROSIGNER_USER_URL: http://microsigner-user:8080
     networks:
       microsigner-network:
     depends_on:
       - mysql
       - apisix
+      - microsigner-user
 
   microsigner-react:
     container_name: microsigner-react
@@ -88,6 +90,9 @@ services:
       microsigner-network:
     depends_on:
       - apisix
+      - microsigner-user
+      - microsigner-crypto
+
 
 networks:
   microsigner-network:

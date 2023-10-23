@@ -12,3 +12,4 @@ server:
   error:
     include-message: always
   port: ${APP_PORT:8081}
+microsigner-user-url: ${MICROSIGNER_USER_URL:http://localhost:8080}
