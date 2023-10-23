@@ -95,12 +95,15 @@ function App() {
     xhr.onload = function () {
       if (xhr.status >= 200 && xhr.status < 400) {
         const {validSignature} = JSON.parse(xhr.responseText);
-        alert(typeof(validSignature));
-        alert('Document signed successfully!\nSignature: ' );
-
+        if (validSignature) { 
+          alert('Signature verified successfully!'); 
+        } else {
+          alert('Signature was NOT verified.');
+        }
       } else {
         alert('Error: ' + xhr.status + xhr.statusText + "\n"
-        + JSON.parse(xhr.responseText).message);
+        + JSON.parse(xhr.responseText).message) + "\n"
+        + 'Signature was NOT verified.';
       }
     };
     xhr.onerror = function () {
@@ -108,20 +111,9 @@ function App() {
     };
 
     xhr.send(JSON.stringify({text: documentText, signatureBase64: signature, signerUsername: username}));
-  
-    /*const isVerified = signedDocuments.some(
-      (doc) => doc.username === loggedInUser.username && doc.documentText === documentText
-    );
-
-    if (isVerified) {
-      setVerifiedDocuments([...verifiedDocuments, { documentText, signature }]);
-      alert('Signature verified successfully!');
-    } else {
-      alert('Signature verification failed.');
-    } */
   };
 
-
+  
   return (
     <div className="App">
       <h1>MicroSigner</h1>
