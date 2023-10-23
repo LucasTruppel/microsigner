@@ -26,4 +26,11 @@ public class GeneralExceptionHandler {
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
 
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<ErrorResponse> handleRuntimeException(Exception e) {
+    e.printStackTrace();
+    var errorResponse =  new ErrorResponse("Unexpected Internal Server Error.");
+    return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
 }

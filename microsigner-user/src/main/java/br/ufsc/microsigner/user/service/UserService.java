@@ -57,4 +57,11 @@ public class UserService {
     return Base64.getEncoder().encodeToString(passwordHashBytes);
   }
 
+
+  public long getIdByUsername(String username) {
+    UserEntity user = userRepository.findFirstByUsername(username)
+            .orElseThrow(() ->  new BadRequestException("User does not exist with given username."));
+    return user.getId();
+  }
+
 }
