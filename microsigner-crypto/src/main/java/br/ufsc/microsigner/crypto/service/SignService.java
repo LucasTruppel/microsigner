@@ -10,9 +10,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.stereotype.Service;
 
+import java.security.*;
 import java.util.Base64;
-import java.security.KeyPair;
-import java.security.Signature;
 
 
 @Service
@@ -42,7 +41,7 @@ public class SignService {
       signature.initSign(keyPair.getPrivate());
       signature.update(text.getBytes());
       return Base64.getUrlEncoder().encodeToString(signature.sign());
-    } catch (Exception e) {
+    } catch (SignatureException | InvalidKeyException | NoSuchAlgorithmException e) {
       throw new InternalServerErrorException(e);
     }
   }
@@ -64,7 +63,10 @@ public class SignService {
       sig.initVerify(keyPair.getPublic());
       sig.update(text.getBytes());
       return sig.verify(Base64.getUrlDecoder().decode(signatureBase64));
-    } catch (Exception e) {
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
+    catch (NoSuchAlgorithmException | InvalidKeyException | SignatureException e) {
       throw new InternalServerErrorException(e);
     }
   }
