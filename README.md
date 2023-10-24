@@ -10,7 +10,7 @@ Por fim, foi utilizado o API Gateway APISIX para orquestrar os microsserviços e
 
 ## Pré-requistos
 
-- Docker
+- Docker >= 24.0.5
 
 ## Como executar
 
