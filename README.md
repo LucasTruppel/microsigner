@@ -11,6 +11,7 @@ Por fim, foi utilizado o API Gateway APISIX para orquestrar os microsserviços e
 ## Pré-requistos
 
 - Docker >= 24.0.5
+- Navegador Firefox
 
 ## Como executar
 
@@ -22,4 +23,9 @@ Execute o docker compose up.
 
 ```shell
 docker compose up
+```
+
+Após a subida dos containers, acesse o seguinte endereço no navegador Firefox:
+```
+http://localhost:5173/
 ```
