@@ -126,7 +126,7 @@ function App() {
       ) : (
         <>
           <div>
-            <h2>Welcome, {loggedInUser.username}!</h2>
+            <h2>Welcome, {loggedInUser}!</h2>
           </div>
           <SignDocument onSign={handleSignDocument} onBack={() => setLoggedInUser(null)} />
           <VerifySignature onVerify={handleVerifySignature} onBack={() => setLoggedInUser(null)} />
