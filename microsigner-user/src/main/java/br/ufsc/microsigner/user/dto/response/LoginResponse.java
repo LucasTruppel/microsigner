@@ -9,5 +9,7 @@ import lombok.Data;
 public class LoginResponse {
 
   String jwt;
+  String username;
+  String name;
 
 }

@@ -1,5 +1,6 @@
 package br.ufsc.microsigner.user.service;
 
+import br.ufsc.microsigner.user.dto.response.LoginResponse;
 import br.ufsc.microsigner.user.entity.UserEntity;
 import br.ufsc.microsigner.user.exception.BadRequestException;
 import br.ufsc.microsigner.user.repository.UserRepository;
@@ -39,17 +40,18 @@ public class UserService {
     return userRepository.save(user);
   }
 
-  public String login(String username, String password) {
+  public LoginResponse login(String username, String password) {
     String passwordHashed = hashPassword(password);
     UserEntity user =  userRepository.findFirstByUsername(username)
             .orElseThrow(() ->  new BadRequestException("User does not exist with given username."));
     if (!Objects.equals(user.getPasswordSha256(), passwordHashed)) {
       throw new BadRequestException("Wrong password.");
     }
-    return JWT.create()
+    String jwt = JWT.create()
             .withClaim(USER_ID_CLAIM, user.getId())
             .withExpiresAt(Instant.now().plusSeconds(60 * 60))
             .sign(jwtSignAlgorithm);
+    return new LoginResponse(jwt, user.getUsername(), user.getName());
   }
 
   private String hashPassword(String password) {

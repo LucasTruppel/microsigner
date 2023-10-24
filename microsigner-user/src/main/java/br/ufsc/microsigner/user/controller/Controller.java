@@ -31,8 +31,8 @@ public class Controller {
 
   @PostMapping("/login")
   public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
-    String jwt = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
-    return new ResponseEntity<>(new LoginResponse(jwt),HttpStatus.OK);
+    LoginResponse response = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
+    return new ResponseEntity<>(response,HttpStatus.OK);
   }
 
   @GetMapping("/user/{username}")
