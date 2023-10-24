@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://${MYSQL_URL:localhost:33066}/${MYSQL_DATABASE:microsigner}
+    url: jdbc:mysql://${MYSQL_URL:localhost:33066}/${MYSQL_DATABASE:microsigner_crypto}
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:password}
   jpa:
@@ -12,4 +12,7 @@ server:
   error:
     include-message: always
   port: ${APP_PORT:8081}
+logging:
+  level:
+    org.springframework.boot: INFO
 microsigner-user-url: ${MICROSIGNER_USER_URL:http://localhost:8080}

@@ -21,7 +21,6 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: microsigner
       MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
@@ -45,7 +44,7 @@ services:
     expose:
       - "8080"
     environment:
-      MYSQL_DATABASE: microsigner
+      MYSQL_DATABASE: microsigner_user
       MYSQL_USER: root
       MYSQL_PASSWORD: password
       MYSQL_URL: mysql
@@ -65,7 +64,7 @@ services:
     expose:
       - "8080"
     environment:
-      MYSQL_DATABASE: microsigner
+      MYSQL_DATABASE: microsigner_crypto
       MYSQL_USER: root
       MYSQL_PASSWORD: password
       MYSQL_URL: mysql

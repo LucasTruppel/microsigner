@@ -96,14 +96,12 @@ function App() {
       if (xhr.status >= 200 && xhr.status < 400) {
         const {validSignature} = JSON.parse(xhr.responseText);
         if (validSignature) { 
-          alert('Signature verified successfully!'); 
+          alert('Signature is valid!'); 
         } else {
-          alert('Signature was NOT verified.');
+          alert('Signature is NOT valid.');
         }
       } else {
-        alert('Error: ' + xhr.status + xhr.statusText + "\n"
-        + JSON.parse(xhr.responseText).message) + "\n"
-        + 'Signature was NOT verified.';
+        alert('Error: ' + JSON.parse(xhr.responseText).message);
       }
     };
     xhr.onerror = function () {

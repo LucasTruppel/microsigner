@@ -1,1 +1,2 @@
-CREATE DATABASE IF NOT EXISTS microsigner;
+CREATE DATABASE IF NOT EXISTS microsigner_user;
+CREATE DATABASE IF NOT EXISTS microsigner_crypto;
